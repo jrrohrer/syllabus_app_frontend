@@ -2,6 +2,9 @@ const endPoint = "http://localhost:3000/api/v1/syllabuses"
 
 document.addEventListener('DOMContentLoaded', () => {
   getSyllabi();
+
+  const createSyllabusForm = document.querySelector("#create-syllabus-form")
+  createSyllabusForm.addEventListener('submit', (e) => createFormHandler(e));
 })
 
 function getSyllabi() {
@@ -22,3 +25,18 @@ function getSyllabi() {
     })
   })
 }
+
+function createFormHandler(e) {
+  e.preventDefault();
+  const titleInput = document.querySelector("#input-title").value;
+  const descriptionInput = document.querySelector("#input-description").value;
+  const imageInput = document.querySelector("#input-image").value;
+  const categoryInput = document.querySelector("#categories").value;
+  const categoryId = parseInt(categoryInput);
+  postFetch(titleInput, descriptionInput, imageInput, categoryId);
+}
+
+function postFetch(title, description, image_url, category_id) {
+  
+}
+
