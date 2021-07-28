@@ -12,7 +12,13 @@ function getSyllabi() {
   .then(response => response.json())
   .then(syllabi => {
     syllabi.data.forEach(syllabus => {
-      const syllabusMarkup = `
+      render(syllabus);
+    })
+  })
+}
+
+function render(syllabus) {
+  const syllabusMarkup = `
         <div data-id=${syllabus.id}>
           <img src="${syllabus.attributes.image_url}" height="200" width="250">
           <h3>${syllabus.attributes.title}</h3>
@@ -22,8 +28,6 @@ function getSyllabi() {
         <br>`;
 
         document.querySelector('#syllabus-container').innerHTML += syllabusMarkup;
-    })
-  })
 }
 
 function createFormHandler(e) {
@@ -47,19 +51,10 @@ function postSyllabus(title, description, image_url, category_id) {
   })
   .then(response => response.json())
   .then(syllabus => { console.log(syllabus)
-    const syllabusData = syllabus.data.attributes
+    const syllabusData = syllabus.data
     
     // render JSON response
-    const syllabusMarkup = `
-      <div data-id=${syllabus.id}>
-        <img src=${syllabusData.image_url} height="200" width="250">
-        <h3>${syllabusData.title}</h3>
-        <p>${syllabusData.category.name}</p>
-        <button data-id=${syllabusData.id}>edit</button>
-      </div>
-      <br><br>`;
-
-    document.querySelector('#syllabus-container').innerHTML += syllabusMarkup;
+    render(syllabusData);
   })
 }
 
